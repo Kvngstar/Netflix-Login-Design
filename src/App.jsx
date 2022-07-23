@@ -10,14 +10,30 @@ export default function App() {
     username: "",
     password: "",
   });
-     console.log([formInput.username, formInput.password]);
+  const [Error, setusernameError] = useState({
+    Message: "",
+    Message2: ""
+    
+  })
+
+
   function onFormChange(event) {
-    setFormInput((prev) => { return ({ ...prev, [event.target.name]: event.target.value }) })
-  
+    setFormInput((prev) => {
+      return { ...prev, [event.target.name]: event.target.value };
+    });
   }
   function formSubmit(event) {
-     event.preventDefault();
-   }
+    event.preventDefault();
+    if (formInput.username == "" || formInput.username.length < 5) {
+       setusernameError({Message : "Username Invalid"})
+    }
+    else if (formInput.password == "" || formInput.password.length < 5) {
+      setusernameError({ Message2: "password invalid" });
+    }
+    else {
+      setusernameError({ Message2: "" });
+    }
+  }
 
   return (
     <div className="wrapper">
@@ -44,6 +60,7 @@ export default function App() {
                   value={formInput.email}
                   name="username"
                 />
+                <div className="error">{Error.Message}</div>
               </FloatingLabel>
               <FloatingLabel controlId="" label="Password">
                 <Form.Control
@@ -53,6 +70,7 @@ export default function App() {
                   value={formInput.password}
                   name="password"
                 />
+                <div className="error">{Error.Message2}</div>
               </FloatingLabel>
               <button>Sign In</button>
               <br />
@@ -64,7 +82,7 @@ export default function App() {
                     name=""
                     id="checkbox"
                   />
-                  <label htmlFor="checkbox">Remember me</label>
+                  <label htmlFor="checkbox">Remember me </label>
                 </div>
                 <div>Need help?</div>
               </div>
@@ -87,18 +105,16 @@ export default function App() {
         </div>
       </div>
       <div className="footer">
-       
-          <ul>
-            <li>Questions? Contact us</li>
-            <li>FAQ</li>
-            <li>Cookie Preferences</li>
-            <li></li>
-          </ul>
-          <ul>
-            <li>Help Centre</li>
-            <li>Corporate Information</li>
-          </ul>
-        
+        <ul>
+          <li>Questions? Contact us</li>
+          <li>FAQ</li>
+          <li>Cookie Preferences</li>
+          <li></li>
+        </ul>
+        <ul>
+          <li>Help Centre</li>
+          <li>Corporate Information</li>
+        </ul>
 
         <ul className="footer-terms">
           <li>Terms of Use</li>
